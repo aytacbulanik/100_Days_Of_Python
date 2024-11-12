@@ -6,6 +6,7 @@ coin = 0.0
 cofeeMachine = True
 
 def calculateMoney():
+    print("lütfen bozuk para atınız.")
     quartersMoney = float(input("How many quarters ? : "))
     dimesMoney = float(input("How many dimes ? : "))
     nicklesMoney = float(input("How many nickles ? : "))
@@ -29,12 +30,16 @@ def controlResources(name):
          return True
 
 def makeCoffee(name):
-
-            coin = calculateMoney(penniesMoney,dimesMoney,nicklesMoney,quartersMoney)
-            coffeeCost = MENU[whatDoYouWant]["cost"]
-            print(coin - coffeeCost)
-            for resource in ["water","milk","coffee"]:
-                resources[resource] -= MENU[name]["ingredients"][resource]
+    coin = calculateMoney()
+    coffeeCost = MENU[name]["cost"]
+    if coin > coffeeCost:
+        print(f"Paranızın üstü ${coin - coffeeCost}. Bölmeden alabilirsiniz.")
+        print(f"{name} hazır. Afiyet olsun.")
+    else:
+        print("yeterli paranız yok. Paranızı bölmeden alabilirsiniz.")
+    #print(coin - coffeeCost)
+    #for resource in ["water","milk","coffee"]:
+    #   resources[resource] -= MENU[name]["ingredients"][resource]
                 
 whatDoYouWant = ""
 while cofeeMachine:                    
@@ -44,7 +49,7 @@ while cofeeMachine:
         getResource()
     elif whatDoYouWant == "latte" or "cappuccino" or "espresso":
         if controlResources(whatDoYouWant):
-            calculateMoney()
+            makeCoffee(whatDoYouWant)
         else:
             continue
     else:
