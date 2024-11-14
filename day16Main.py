@@ -1,7 +1,19 @@
-from prettytable import PrettyTable 
+from day16Menu import Menu, MenuItem
+from day16coffee_maker import CoffeeMaker
+from day16Money_machine import MoneyMachine
 
-table = PrettyTable()
+myMoneyMachine = MoneyMachine()
+myCoffeeMaker = CoffeeMaker()
+menu = Menu()
+isOn = True
+myCoffeeMaker.report()
 
-table.add_column("Ad", ["ali","aytaç","mehmet","yeşim"])
-table.add_column("Soyad", ["mehemt","kimya","öztürk","sönmez"], align="l")
-print(table)
+while isOn:
+    option = menu.get_items()
+    choseDrink = input(f"wahat do you drink ? {option}: ")
+    if choseDrink == "off":
+        isOn = False
+        break
+    elif choseDrink == "report":
+        myCoffeeMaker.report()
+        myMoneyMachine.report()
