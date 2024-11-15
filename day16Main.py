@@ -6,7 +6,6 @@ myMoneyMachine = MoneyMachine()
 myCoffeeMaker = CoffeeMaker()
 menu = Menu()
 isOn = True
-myCoffeeMaker.report()
 
 while isOn:
     option = menu.get_items()
@@ -17,3 +16,9 @@ while isOn:
     elif choseDrink == "report":
         myCoffeeMaker.report()
         myMoneyMachine.report()
+    else:
+        drink = menu.find_drink(choseDrink)
+        result = myCoffeeMaker.is_resource_sufficient(drink)
+        if result:
+            if myMoneyMachine.make_payment(drink.cost):
+                myCoffeeMaker.make_coffee(drink)
