@@ -5,9 +5,9 @@ from day17QuizBrain import QuizBrain
 
 questionBank = []
 
-for question in question_data:
-    qText = question["text"]
-    qAnswer = question["answer"]
+for question in question_data["results"]:
+    qText = question["question"]
+    qAnswer = question["correct_answer"]
     newQuestion = Question(qText,qAnswer)
     questionBank.append(newQuestion)
 
