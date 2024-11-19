@@ -15,3 +15,6 @@ newQuiz = QuizBrain(questionBank)
 
 while newQuiz.controlQuizEnd():
     newQuiz.nextQuestion()
+
+print("Your quiz is completed")
+print(f"Your final Score : {newQuiz.score}")
