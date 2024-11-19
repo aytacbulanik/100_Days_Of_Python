@@ -1,5 +1,7 @@
 from day17Data import question_data
 from day17QuestionModel import Question
+from day17QuizBrain import QuizBrain
+
 
 questionBank = []
 
@@ -9,4 +11,5 @@ for question in question_data:
     newQuestion = Question(qText,qAnswer)
     questionBank.append(newQuestion)
 
-print(questionBank[3].text)
+newQuiz = QuizBrain(questionBank)
+print(newQuiz.nextQuestion())
