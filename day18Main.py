@@ -3,15 +3,16 @@ import random
 
 myTurtle = Turtle()
 myScreen = Screen()
-myTurtle.shape("arrow")
-myTurtle.color(0.4,0.8,0.9)
-kenarSayisi = 3
+myTurtle.shape("arrow") #hangi şekli seçeceğimizi bu kodla belirliyoruz
+myTurtle.pensize(8) # şeklin kalınlığını belirliyor
+myTurtle.speed("fast") #şeklin hızını belirliyoruz
+colorList = ["dark orange","deep sky blue","forest green","medium violet red"]
+angleList = [0,90,180,270]
 
-for _ in range(6):
-    for _ in range(kenarSayisi):
-        donusAcisi = 360 / kenarSayisi
-        myTurtle.forward(50)
-        myTurtle.right(donusAcisi)
-    kenarSayisi += 1
-    myTurtle.color(random.random(),random.random(),random.random())
+def randomWalk():
+    myTurtle.forward(30) #kaç birim ilerleyeceğimizi belirliyoruz
+    myTurtle.setheading(random.choice(angleList)) #şeklin dönüş yönünü listeden seçerek belirliyoruz
+    myTurtle.color(random.choice(colorList)) #şekle listeden seçerek karışık renk veriyoruz.
+for _ in range(100):
+    randomWalk()
 myScreen.exitonclick()
