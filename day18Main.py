@@ -1,30 +1,34 @@
 from turtle import Turtle , Screen
 import random
-import colorgram
 
-myTuppleArray = []
+myTuppleArray = [(101, 190, 171), (100, 164, 209), (207, 137, 182), (213, 120, 240), (56, 179, 154), (49, 124, 170)]
 
-myColor = colorgram.extract("cologram.jpg",7)
-for color in myColor:
-    newTupple = (color.rgb.r,color.rgb.g,color.rgb.b)
-    myTuppleArray.append(newTupple)
-print(myTuppleArray[0])
 myTurtle = Turtle()
 myScreen = Screen()
 myScreen.colormode(255)
-
+myXPostion = -400
+myYPosition = -300
 myTurtle.shape("arrow") #hangi şekli seçeceğimizi bu kodla belirliyoruz
 myTurtle.pensize(1) # şeklin kalınlığını belirliyor
-myTurtle.speed("fastest") #şeklin hızını belirliyoruz
+myTurtle.speed("fast") #şeklin hızını belirliyoruz
 
 def randomColor():
     newColor = random.choice(myTuppleArray)
     return newColor
-
+print(myScreen.screensize())
+myTurtle.penup()
+myTurtle.setposition(myXPostion,myYPosition)
 def randomWalk():
-    myTurtle.circle(100)
-    myTurtle.setheading(myTurtle.heading() + 10)
-    myTurtle.color(randomColor()) #şekle oluşturduğumuz fonksiyon ile karışık renk veriyoruz.
-for _ in range(36):
-    randomWalk()
+    myTurtle.color(randomColor())
+    myTurtle.dot(20)
+    myTurtle.penup()
+     #şekle oluşturduğumuz fonksiyon ile karışık renk veriyoruz.
+    myTurtle.forward(70)
+for _ in range(10):    
+    for _ in range(10):
+        randomWalk()
+    myXPostion = -400
+    myYPosition += 50
+    myTurtle.setposition(myXPostion,myYPosition)
+
 myScreen.exitonclick()
