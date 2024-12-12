@@ -17,11 +17,11 @@ def randomColor():
     return newColor
 print(myScreen.screensize())
 myTurtle.penup()
+myTurtle.hideturtle()
 myTurtle.setposition(myXPostion,myYPosition)
 def randomWalk():
     myTurtle.color(randomColor())
     myTurtle.dot(20)
-    myTurtle.penup()
      #şekle oluşturduğumuz fonksiyon ile karışık renk veriyoruz.
     myTurtle.forward(70)
 for _ in range(10):    
