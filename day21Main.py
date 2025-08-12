@@ -1,8 +1,11 @@
 from turtle import Screen
 from day21paddle import Paddle
+from day21Ball import Ball
+import time
 
 p1paddle = Paddle(-350)
 computerPaddle = Paddle(350)
+ball = Ball()
 screen = Screen()
 screen.setup(800,600)
 screen.bgcolor("black")
@@ -17,7 +20,17 @@ screen.onkey(computerPaddle.moveDown,"Down")
 
 gameIsOn = True
 while gameIsOn:
+    time.sleep(0.05)
     screen.update()
+    ball.move()
+    #topun üst yada alt tarafa çarptığını kontrol ediyoruz. 
+    # y değerini arttırma ve azalatma yapıyoruz.
+    if ball.ycor() > 280 or ball.ycor() < -280:
+        ball.bounceY()
+    #topuun sağ paddle çarpmasını kontrol ediyoruz.
+    if ball.distance(computerPaddle) < 50 and ball.xcor() > 320 or ball.distance(p1paddle) < 50 and ball.xcor() < -320:
+        ball.bounceX()
+
 
 
 screen.exitonclick()
