@@ -20,7 +20,7 @@ screen.onkey(computerPaddle.moveDown,"Down")
 
 gameIsOn = True
 while gameIsOn:
-    time.sleep(0.05)
+    time.sleep(0.1)
     screen.update()
     ball.move()
     #topun üst yada alt tarafa çarptığını kontrol ediyoruz. 
@@ -30,6 +30,13 @@ while gameIsOn:
     #topuun sağ paddle çarpmasını kontrol ediyoruz.
     if ball.distance(computerPaddle) < 50 and ball.xcor() > 320 or ball.distance(p1paddle) < 50 and ball.xcor() < -320:
         ball.bounceX()
+
+    #topun sayı olduğunu kontrol edeceğiz.
+    if ball.xcor() > 380:
+        ball.resetBall()
+    
+    if ball.xcor() < -380:
+        ball.resetBall()
 
 
 
