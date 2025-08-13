@@ -9,4 +9,18 @@ class Scoreboard(Turtle):
         self.hideturtle()
         self.p1Score = 0
         self.computerScore = 0
-        self.write(f"{self.p1Score} -- {self.computerScore}",True,"center",("Arial" ,20,"bold"))
+        self.updateScoreboard()
+        
+
+    def updateScoreboard(self):
+        self.clear()
+        self.goto(0,260)
+        self.write(f"{self.p1Score} -- {self.computerScore}",True,"center",("Arial" ,30,"bold"))
+
+    def upP1Score(self):
+        self.p1Score += 1
+        self.updateScoreboard()
+
+    def upComputerScore(self):
+        self.computerScore += 1
+        self.updateScoreboard()
