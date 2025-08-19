@@ -1,20 +1,27 @@
 from turtle import Turtle
+import random
 
-class CarManager(Turtle):
+class CarManager:
+    
     def __init__(self):
         super().__init__()
-        self.createCar()
+        self.allCars = []
 
     def createCar(self):
-        self.shape("square")
-        self.penup()
-        self.shapesize(1,2)
-        self.color("red")
-        self.hideturtle()
-        self.goto(200,0)
-        self.showturtle()
+        randomChange = random.randint(1,6)
+        if randomChange == 1:
+            randomY = random.randint(-260,260)
+            newTurtle = Turtle()
+            newTurtle.shape("square")
+            newTurtle.penup()
+            newTurtle.shapesize(1,2)
+            newTurtle.color(self.randomColor())
+            newTurtle.goto(300,randomY)
+            self.allCars.append(newTurtle)
 
+    def randomColor(self):
+        return (random.random(),random.random(),random.random())
+    
     def carMove(self):
-        newX = self.xcor() - 10
-        newY = self.ycor()
-        self.goto(newX,newY)
+        for car in self.allCars:
+            car.backward(10)

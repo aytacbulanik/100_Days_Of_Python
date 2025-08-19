@@ -12,14 +12,14 @@ screen.listen()
 screen.tracer(0)
 
 screen.onkey(player.moveUp ,"Up")
-screen.onkey(player.moveDown , "Down")
-
 
 gameIsOn = True
 while gameIsOn:
     time.sleep(0.05)
     screen.update()
+    carManager.createCar()
     carManager.carMove()
+    
 
 
 screen.exitonclick()
