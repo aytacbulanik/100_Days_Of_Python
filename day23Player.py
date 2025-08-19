@@ -16,5 +16,6 @@ class Player(Turtle):
 
     def moveDown(self):
         newX = self.xcor()
-        newY = self.ycor() - 20
-        self.goto(newX,newY)
+        if self.ycor() > -280:
+            newY = self.ycor() - 20
+            self.goto(newX,newY)
