@@ -19,3 +19,8 @@ class Scoreboard(Turtle):
         self.level += 1
         self.levelSpeed -= 0.01
         self.update()
+
+    def endGame(self):
+        self.clear()
+        self.goto(0,0)
+        self.write(f"Game Over",True,"center",("Arial",20,"normal"))

@@ -27,5 +27,11 @@ while gameIsOn:
         player.update()
         scoreBoard.increaseLevel()
 
+    #detected crash car
+    for oneCar in carManager.allCars:
+        if player.distance(oneCar) < 10:
+            scoreBoard.endGame()
+            gameIsOn = False
+
 
 screen.exitonclick()
