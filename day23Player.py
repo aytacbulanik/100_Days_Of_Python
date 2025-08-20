@@ -13,3 +13,6 @@ class Player(Turtle):
         newX = self.xcor()
         newY = self.ycor() + 20
         self.goto(newX,newY)
+
+    def update(self):
+        self.goto(0,-280)
