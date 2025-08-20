@@ -29,7 +29,7 @@ while gameIsOn:
 
     #detected crash car
     for oneCar in carManager.allCars:
-        if player.distance(oneCar) < 10:
+        if oneCar.distance(player) < 20:
             scoreBoard.endGame()
             gameIsOn = False
 
