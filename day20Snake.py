@@ -25,6 +25,15 @@ class Snake:
         newSegment.penup()
         newSegment.goto(position)
         self.mySegments.append(newSegment)
+
+    #oyun tamamlanınca yılanı yeniden başlatan kısım
+    def reset(self):
+        for seg in self.mySegments:
+            seg.goto(1000,1000)
+        self.mySegments.clear()
+        self.createSnake()
+        self.head = self.mySegments[0]
+
     #bir tane yem yediğinde uzatmak için kullanıyoruz.
     def extend(self):
         self.addSegment(self.mySegments[-1].position())
