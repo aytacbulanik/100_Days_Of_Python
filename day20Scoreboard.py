@@ -1,11 +1,14 @@
 from turtle import Turtle
 
+with open("day20Data.txt") as dataFile:
+    hScore = dataFile.read()
+
 class Scoreboard(Turtle):
 
     def __init__(self):
         super().__init__()
         self.score = 0
-        self.highScore = 0
+        self.highScore = int(hScore)
         self.penup()
         self.hideturtle()
         self.refresh()
@@ -18,6 +21,8 @@ class Scoreboard(Turtle):
     def resetGame(self):
         if self.score > self.highScore:
             self.highScore = self.score
+            with open("day20Data.txt",mode="w") as dataFile:
+                dataFile.write(str(self.highScore))
         self.score = 0
         self.refresh()
 

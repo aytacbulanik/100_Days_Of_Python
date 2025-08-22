@@ -1,0 +1,4 @@
+Merhaba ben aytaç
+bu ilk text dosyam
+buradaki şeyleri python ile okuyacağız.
+bu dosyaya yeni yaz�lan �eydir.
