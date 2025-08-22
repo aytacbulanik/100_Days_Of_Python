@@ -22,7 +22,7 @@ screen.onkey(snake.right,"Right")
 gameIsOn = True
 while gameIsOn:
     screen.update() #ekranı yenile kodunu yazıyoruz.
-    time.sleep(0.1) #yenilenmeden sonra ne kadarlık bir saniye beklemesi gerektiğini yazıyoruz.
+    time.sleep(0.2) #yenilenmeden sonra ne kadarlık bir saniye beklemesi gerektiğini yazıyoruz.
     snake.move()
 
     #distance metodu bir nesnenin başka bir nesneye olan uzaklığını ölçmek için kullanılıyor.
@@ -32,16 +32,17 @@ while gameIsOn:
         scoreboard.increcise()
     #duvarlara çarpmasını kontrol ediyoruz.
     if snake.head.xcor() > 280 or snake.head.xcor() < -300 or snake.head.ycor() > 280 or snake.head.ycor() < -300:
-        gameIsOn = False
-        scoreboard.gameOver()
+        scoreboard.resetGame()
+        snake.reset()
+
     #snake in kendi parçasına çarpmasını kontrol ediyoruz.
     for segment in snake.mySegments:
         if segment == snake.head:
             pass
         #snake in her bir segmesinin ilk segmentine olan uzaklığını ölçüyoruz. 10 dan küçükse çarpmış olarak algılanıyor.
         elif snake.head.distance(segment) < 10 :
-            gameIsOn = False
-            scoreboard.gameOver()
+            scoreboard.resetGame()
+            snake.reset()
 
 
 screen.exitonclick()
