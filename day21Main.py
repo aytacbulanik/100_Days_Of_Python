@@ -42,6 +42,4 @@ while gameIsOn:
         ball.resetBall()
         scoreBoard.upComputerScore()
 
-
-
 screen.exitonclick()

@@ -1,6 +1,5 @@
 from turtle import Turtle
 import random
-
 class CarManager:
     
     def __init__(self):
@@ -18,10 +17,10 @@ class CarManager:
             newTurtle.color(self.randomColor())
             newTurtle.goto(300,randomY)
             self.allCars.append(newTurtle)
-
+#herbir araba için değişik renk oluşturuluyor
     def randomColor(self):
         return (random.random(),random.random(),random.random())
-    
+#arabanın sürekli sola doğru hareketi sağlanıyor   
     def carMove(self):
         for car in self.allCars:
             car.backward(10)

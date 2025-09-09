@@ -1,6 +1,6 @@
-#import csv
+# import csv
 
-#with open("weather_data.csv") as dataFile:
+# with open("weather_data.csv") as dataFile:
 #    data = csv.reader(dataFile) #csv dosyasının her satırını birer liste çevirir
 #    tempature = []
 #    for row in data:
@@ -9,7 +9,7 @@
 #        tempature.append(int(row[1])) #1 numaralı bir sütundaki elemanlar 
 #        #farklı bir listeye kaydediliyor.
 
-#print(tempature)
+# print(tempature)
 
 import pandas
 

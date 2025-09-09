@@ -1,5 +1,4 @@
 from turtle import Turtle
-
 class Player(Turtle):
     def __init__(self):
         super().__init__()
@@ -8,7 +7,7 @@ class Player(Turtle):
         self.penup()
         self.setheading(90)
         self.goto(0,-280)
-
+#oyuncu her tuşa baştığında yukarı hareket ediyor.
     def moveUp(self):
         newX = self.xcor()
         newY = self.ycor() + 20
