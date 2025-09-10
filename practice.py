@@ -1,6 +1,5 @@
-with open("myFile.txt") as file:
-    content = file.read()
-    print(content)
+import pandas
 
-with open("myFile.txt",mode="a") as file:
-    content = file.write("bu dosyaya yeni yazılan şeydir.")
+data = pandas.read_csv("weather_data.csv")
+monday = data[data.day == "Monday"]
+print(type(monday))

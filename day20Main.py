@@ -43,6 +43,5 @@ while gameIsOn:
         elif snake.head.distance(segment) < 10 :
             scoreboard.resetGame()
             snake.reset()
-
-
+            
 screen.exitonclick()

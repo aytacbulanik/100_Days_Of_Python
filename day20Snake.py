@@ -9,16 +9,16 @@ MOVEDISTANCE = 20
 
 
 class Snake:
-      
+    #ilk oluşturulduğunda snake in parçalarını boş oluşturuyoruz 
     def __init__(self):
         self.mySegments = []
         self.createSnake()
         self.head = self.mySegments[0]
-    #snake in parçalarını eklemek için bu fonksiyonu kullanıyoruz.
+    #ilk 3 bölümden oluşan snake yapısını sağlıyor
     def createSnake(self):    
         for position in MYPOSITIONS:
             self.addSegment(position)
-    
+    #yeni bir parça oluşturma ve diziye ekleme foksiyonu
     def addSegment(self,position):
         newSegment = Turtle("square")
         newSegment.color("white")

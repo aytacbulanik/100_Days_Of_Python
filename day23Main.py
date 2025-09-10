@@ -33,5 +33,4 @@ while gameIsOn:
             scoreBoard.endGame()
             gameIsOn = False
 
-
 screen.exitonclick()

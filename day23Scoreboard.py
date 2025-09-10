@@ -9,12 +9,12 @@ class Scoreboard(Turtle):
         self.hideturtle()
         self.penup()
         self.update()
-    
+#tur değiştikçe levele göre scoreboard yenileniyor.  
     def update(self):
         self.clear()
         self.goto(-280,270)
         self.write(f"Oyun Leveli : {self.level}",True,"left",("Arial",20,"normal"))
-
+#leveli değiştiren fonksiyon aşağıda tanımlandı
     def increaseLevel(self):
         self.level += 1
         self.levelSpeed -= 0.01
