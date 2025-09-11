@@ -18,9 +18,7 @@ while gameIsOn:
     capName = str(userAnswer).title()
     #oyundan çıkmak için kontrol oluşturduk.bulamadığımız state ler diziye ekleniyor
     if capName == "Exit":
-        for state in dataListName:
-            if state not in corretStates:
-                unUsedStates.append(state)
+        unUsedStates = [state for state in dataListName if state not in corretStates]
         break
     #verilen cevapların kontrolü sağlanıyor ve diziye ekleniyor.
     if  capName in dataListName:
