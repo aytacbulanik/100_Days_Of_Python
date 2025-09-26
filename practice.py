@@ -34,3 +34,22 @@ data = pandas.DataFrame(travel_log)#dict kullanarak pandas dataframe elde ettik
 for (index,row) in data.iterrows(): #itterrows metodu her bir satıra ulaşmamızı sağlıyor
     print(row.France)
     print("-----------")
+#birden fazla değeri alan bir fonksiyon yarattık. burada * mutlaka olmalı sonrasında bir isim vermemiz gerekiyor.
+# bu isim tüm girilen değerleri tuple olarak alıyor  
+def add(*args):
+    toplam = 0
+    for n in args:
+        toplam += n
+    return toplam
+sonuc = add(3,17,41,5)
+print(sonuc)
+
+#birden fazla parametre alabilen bir fonksiyon yarattık. parametleri fonksiyonu çağırdığımızda ekleyebiliriz.bunlar 
+#önceden tanımlanmış özel degerlerdir. doc dosyasında detayı bulunur.
+def useArgs(**kwargs):
+    print(type(kwargs)) #bu tanımlanan parametrenin dict tipinde olduğunu gösteriyor
+    print(kwargs) #fonksiyon çağırıldığında kullanılan argümanların gict içerinde gösterimi
+    print(kwargs["number"])
+    kwargs.get("deneme")
+
+useArgs(number= 30 , name = "Ali")
