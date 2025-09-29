@@ -28,7 +28,19 @@ tomatoPath = PhotoImage(file="tomato.png") #resmin olduğu dosya yoluna erişmek
 canvas.create_image(100,115,image=tomatoPath) #hangi resmi kullanacağımızı ve konumladıracağımızı söylüyoruz.
 canvas.create_text(100,130, text="00:00" ,fill="white", font=(FONT_NAME,30,"bold"))#metin ekliyoruz ve buna konum yazı rengi 
 #yazı tipi gibi parametrelerle şekillendiriyoruz.
-canvas.pack()
+canvas.grid(column=1,row=1)
+
+timerLabel = Label(text="Timer" , font=(FONT_NAME,40),fg=GREEN ,bg=YELLOW)
+timerLabel.grid(column=1,row=0)
+
+startButton = Button(text="Start",highlightthickness=0)
+startButton.grid(column=0,row=2)
+
+resetButton = Button(text="Reset",highlightthickness=0)
+resetButton.grid(column=2,row=2)
+
+pomodoroLabel = Label(text="✔", font=(FONT_NAME,10),fg=GREEN,bg=YELLOW)
+pomodoroLabel.grid(column=1,row=3)
 
 
 window.mainloop()
