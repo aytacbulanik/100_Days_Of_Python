@@ -22,17 +22,29 @@ label2.grid(row=2,column=0)
 
 emailEntry = Entry(width=50)
 emailEntry.grid(row=2,column=1,columnspan=2)
+#alana direk veri yazmak istiyorsak inseet kullanılır. 0 verirsek en başa yazar
+#END kullanırsak en sona ekler
+emailEntry.insert(0,"aytacbulanik@hotmail.com")
 
 label3 = Label(text="Password : ")
 label3.grid(row=3,column=0)
 
-passwordEntry = Entry(width=32)
+passwordEntry = Entry(width=31)
 passwordEntry.grid(row=3,column=1)
 
-generateButton = Button(text="Generate Password")
+def writeData():
+        websiteText = websiteEntry.get()
+        emailText = emailEntry.get()
+        passwordText = passwordEntry.get()
+        with open("./files/passwordData.txt",mode="a",encoding="utf-8")as dataFile:
+            dataFile.write(f"{websiteText} : {emailText} : {passwordText}" + "\n")
+        websiteEntry.delete(0,END)
+        emailEntry.delete(0,END)
+        passwordEntry.delete(0,END)
+generateButton = Button(text="Generate Password",width=14)
 generateButton.grid(row=3,column=2)
 
-addButton = Button(text="Add",width=44)
+addButton = Button(text="Add",width=42,command=writeData)
 addButton.grid(row=4,column=1,columnspan=2)
 
 
