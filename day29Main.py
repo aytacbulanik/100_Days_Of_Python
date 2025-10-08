@@ -1,4 +1,21 @@
 from tkinter import *
+from tkinter import messagebox #uyarı mesajlarını kullanmak için bunu dahil etmemiz lazım
+from random import randint , choice , shuffle
+def generatePassword():
+    passwordEntry.delete(0,END)
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+    paswordLetters = [choice(letters) for _ in range(randint(8,10))]
+    paswordSymbols = [choice(numbers) for _ in range(randint(2,4))]
+    paswordNumbers = [choice(symbols) for _ in range(randint(2,4))]
+
+    paswordLists = paswordLetters + paswordSymbols + paswordNumbers
+    shuffle(paswordLists)
+
+    password = "".join(paswordLists)
+    passwordEntry.insert(0,password)
 
 window = Tk()
 window.title("Password Manager")
@@ -36,12 +53,17 @@ def writeData():
         websiteText = websiteEntry.get()
         emailText = emailEntry.get()
         passwordText = passwordEntry.get()
-        with open("./files/passwordData.txt",mode="a",encoding="utf-8")as dataFile:
-            dataFile.write(f"{websiteText} : {emailText} : {passwordText}" + "\n")
-        websiteEntry.delete(0,END)
-        emailEntry.delete(0,END)
-        passwordEntry.delete(0,END)
-generateButton = Button(text="Generate Password",width=14)
+
+        if len(websiteText) < 1 or len(passwordText) < 1:
+            messagebox.showinfo(title="Hata !!!",message="Alanlar boş olamaz")
+        else:
+             isOk = messagebox.askokcancel(title=websiteText,message=f"website : {websiteText} \n password : {passwordText} \n bilgiler doğru mu ?")
+             if isOk:  
+                with open("./files/passwordData.txt",mode="a",encoding="utf-8")as dataFile:
+                    dataFile.write(f"{websiteText} : {emailText} : {passwordText}" + "\n")
+                    websiteEntry.delete(0,END)
+                    passwordEntry.delete(0,END)
+generateButton = Button(text="Generate Password",width=14,command=generatePassword)
 generateButton.grid(row=3,column=2)
 
 addButton = Button(text="Add",width=42,command=writeData)
