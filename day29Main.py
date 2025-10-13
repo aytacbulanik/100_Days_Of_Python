@@ -22,7 +22,7 @@ def generatePassword():
 window = Tk()
 window.title("Password Manager")
 window.config(padx=50,pady=50)
-logoPath = "passwordLogo.png"
+logoPath = "./images/passwordLogo.png"
 passwordImage = PhotoImage(file=logoPath)
 canvas = Canvas(width=200,height=200,bg="white",highlightthickness=0)
 canvas.create_image(100,100,image=passwordImage)
