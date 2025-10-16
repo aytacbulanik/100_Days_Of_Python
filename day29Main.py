@@ -1,7 +1,8 @@
 from tkinter import *
 from tkinter import messagebox #uyarı mesajlarını kullanmak için bunu dahil etmemiz lazım
 from random import randint , choice , shuffle #bu şekilde yazılınca her fonksiyon başında
-#random u çağırmadan da kullanabiliriz.
+#random yazmadan da kullanabiliriz.
+import json
 
 def generatePassword():
     passwordEntry.delete(0,END)
@@ -52,20 +53,29 @@ passwordEntry = Entry(width=31)
 passwordEntry.grid(row=3,column=1)
 
 def writeData():
-        websiteText = websiteEntry.get()
-        emailText = emailEntry.get()
-        passwordText = passwordEntry.get()
-        #alanlar boş mu kontrolü yapıyoruz.
-        if len(websiteText) < 1 or len(passwordText) < 1:
-            messagebox.showinfo(title="Hata !!!",message="Alanlar boş olamaz")
-        else:
-             #messagebox kullanarak kullanıcdan ture ve false alıp ona göre işleme devam ediyoruz.
-             isOk = messagebox.askokcancel(title=websiteText,message=f"website : {websiteText} \n password : {passwordText} \n bilgiler doğru mu ?")
-             if isOk:  
-                with open("./files/passwordData.txt",mode="a",encoding="utf-8")as dataFile:
-                    dataFile.write(f"{websiteText} : {emailText} : {passwordText}" + "\n")
-                    websiteEntry.delete(0,END)
-                    passwordEntry.delete(0,END)
+    websiteText = websiteEntry.get()
+    emailText = emailEntry.get()
+    passwordText = passwordEntry.get()
+    newData = {
+        websiteText : {
+            "email" : emailText,
+            "password" : passwordText
+            }
+        }
+
+    #alanlar boş mu kontrolü yapıyoruz.
+    if len(websiteText) < 1 or len(passwordText) < 1:
+        messagebox.showinfo(title="Hata !!!",message="Alanlar boş olamaz")
+    else: 
+        #bu kod bloğu ile veriyi alıp güncelleiyoruz.
+        with open("./files/jsonData.json",mode="r") as dataFile:
+            data = json.load(dataFile) 
+            data.update(newData)
+        #bu kod bloğu ile dosyadaki herşeyi silip eski veriyle birlikte güncellennen yeni veriyi yazıyoruz.
+        with open("./files/jsonData.json",mode="w") as dataFile:
+            json.dump(data,dataFile,indent=4)
+            websiteEntry.delete(0,END)
+            passwordEntry.delete(0,END)
 generateButton = Button(text="Generate Password",width=14,command=generatePassword)
 generateButton.grid(row=3,column=2)
 
