@@ -66,16 +66,26 @@ def writeData():
     #alanlar boş mu kontrolü yapıyoruz.
     if len(websiteText) < 1 or len(passwordText) < 1:
         messagebox.showinfo(title="Hata !!!",message="Alanlar boş olamaz")
-    else: 
-        #bu kod bloğu ile veriyi alıp güncelleiyoruz.
-        with open("./files/jsonData.json",mode="r") as dataFile:
-            data = json.load(dataFile) 
+    else:
+        try:
+            #bu kod bloğu ile veriyi alıp güncelleiyoruz.
+            with open("./files/jsonData.json",mode="r") as dataFile:
+                data = json.load(dataFile) 
+        except FileNotFoundError:
+            with open("./files/jsonData.json",mode="w") as dataFile:
+                json.dump(newData,dataFile,indent=4)
+        except json.decoder.JSONDecodeError :
+            with open("./files/jsonData.json",mode="w") as dataFile:
+                json.dump(newData,dataFile,indent=4)
+        else:
             data.update(newData)
-        #bu kod bloğu ile dosyadaki herşeyi silip eski veriyle birlikte güncellennen yeni veriyi yazıyoruz.
-        with open("./files/jsonData.json",mode="w") as dataFile:
-            json.dump(data,dataFile,indent=4)
+            #bu kod bloğu ile dosyadaki herşeyi silip eski veriyle birlikte güncellennen yeni veriyi yazıyoruz.
+            with open("./files/jsonData.json",mode="w") as dataFile:
+                json.dump(data,dataFile,indent=4)
+        finally:
             websiteEntry.delete(0,END)
             passwordEntry.delete(0,END)
+
 generateButton = Button(text="Generate Password",width=14,command=generatePassword)
 generateButton.grid(row=3,column=2)
 
