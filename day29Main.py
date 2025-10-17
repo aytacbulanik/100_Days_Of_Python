@@ -1,7 +1,8 @@
 from tkinter import *
 from tkinter import messagebox #uyarı mesajlarını kullanmak için bunu dahil etmemiz lazım
 from random import randint , choice , shuffle #bu şekilde yazılınca her fonksiyon başında
-#random u çağırmadan da kullanabiliriz.
+#random yazmadan da kullanabiliriz.
+import json
 
 def generatePassword():
     passwordEntry.delete(0,END)
@@ -18,11 +19,13 @@ def generatePassword():
 
     password = "".join(paswordLists) #join metodu bir listedeki elemanları sona ekliyor.
     passwordEntry.insert(0,password)
-
+def search():
+    website = websiteEntry.get()
+    
 window = Tk()
 window.title("Password Manager")
 window.config(padx=50,pady=50)
-logoPath = "passwordLogo.png"
+logoPath = "./images/passwordLogo.png"
 passwordImage = PhotoImage(file=logoPath)
 canvas = Canvas(width=200,height=200,bg="white",highlightthickness=0)
 canvas.create_image(100,100,image=passwordImage)
@@ -31,8 +34,8 @@ canvas.grid(column=1,row=0)
 label1 = Label(text="Website : ")
 label1.grid(row=1,column=0)
 
-websiteEntry = Entry(width=50)
-websiteEntry.grid(row=1,column=1,columnspan=2) #grid yönteminde 
+websiteEntry = Entry(width=31)
+websiteEntry.grid(row=1,column=1) #grid yönteminde 
 #columnspan değeri kaç colon boyunca uzaması gerektiğini ayarlıyor.
 websiteEntry.focus() #imlecin direk burada başlamasını sağlıyor.
 
@@ -52,22 +55,44 @@ passwordEntry = Entry(width=31)
 passwordEntry.grid(row=3,column=1)
 
 def writeData():
-        websiteText = websiteEntry.get()
-        emailText = emailEntry.get()
-        passwordText = passwordEntry.get()
-        #alanlar boş mu kontrolü yapıyoruz.
-        if len(websiteText) < 1 or len(passwordText) < 1:
-            messagebox.showinfo(title="Hata !!!",message="Alanlar boş olamaz")
+    websiteText = websiteEntry.get()
+    emailText = emailEntry.get()
+    passwordText = passwordEntry.get()
+    newData = {
+        websiteText : {
+            "email" : emailText,
+            "password" : passwordText
+            }
+        }
+
+    #alanlar boş mu kontrolü yapıyoruz.
+    if len(websiteText) < 1 or len(passwordText) < 1:
+        messagebox.showinfo(title="Hata !!!",message="Alanlar boş olamaz")
+    else:
+        try:
+            #bu kod bloğu ile veriyi alıp güncelleiyoruz.
+            with open("./files/jsonData.json",mode="r") as dataFile:
+                data = json.load(dataFile) 
+        except FileNotFoundError:
+            with open("./files/jsonData.json",mode="w") as dataFile:
+                json.dump(newData,dataFile,indent=4)
+        except json.decoder.JSONDecodeError :
+            with open("./files/jsonData.json",mode="w") as dataFile:
+                json.dump(newData,dataFile,indent=4)
         else:
-             #messagebox kullanarak kullanıcdan ture ve false alıp ona göre işleme devam ediyoruz.
-             isOk = messagebox.askokcancel(title=websiteText,message=f"website : {websiteText} \n password : {passwordText} \n bilgiler doğru mu ?")
-             if isOk:  
-                with open("./files/passwordData.txt",mode="a",encoding="utf-8")as dataFile:
-                    dataFile.write(f"{websiteText} : {emailText} : {passwordText}" + "\n")
-                    websiteEntry.delete(0,END)
-                    passwordEntry.delete(0,END)
+            data.update(newData)
+            #bu kod bloğu ile dosyadaki herşeyi silip eski veriyle birlikte güncellennen yeni veriyi yazıyoruz.
+            with open("./files/jsonData.json",mode="w") as dataFile:
+                json.dump(data,dataFile,indent=4)
+        finally:
+            websiteEntry.delete(0,END)
+            passwordEntry.delete(0,END)
+
 generateButton = Button(text="Generate Password",width=14,command=generatePassword)
 generateButton.grid(row=3,column=2)
+
+searchButton = Button(text="Search",width=14,command=search)
+searchButton.grid(row=1,column=2)
 
 addButton = Button(text="Add",width=42,command=writeData)
 addButton.grid(row=4,column=1,columnspan=2)
