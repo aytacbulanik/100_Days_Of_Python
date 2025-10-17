@@ -19,7 +19,9 @@ def generatePassword():
 
     password = "".join(paswordLists) #join metodu bir listedeki elemanları sona ekliyor.
     passwordEntry.insert(0,password)
-
+def search():
+    website = websiteEntry.get()
+    
 window = Tk()
 window.title("Password Manager")
 window.config(padx=50,pady=50)
@@ -32,8 +34,8 @@ canvas.grid(column=1,row=0)
 label1 = Label(text="Website : ")
 label1.grid(row=1,column=0)
 
-websiteEntry = Entry(width=50)
-websiteEntry.grid(row=1,column=1,columnspan=2) #grid yönteminde 
+websiteEntry = Entry(width=31)
+websiteEntry.grid(row=1,column=1) #grid yönteminde 
 #columnspan değeri kaç colon boyunca uzaması gerektiğini ayarlıyor.
 websiteEntry.focus() #imlecin direk burada başlamasını sağlıyor.
 
@@ -88,6 +90,9 @@ def writeData():
 
 generateButton = Button(text="Generate Password",width=14,command=generatePassword)
 generateButton.grid(row=3,column=2)
+
+searchButton = Button(text="Search",width=14,command=search)
+searchButton.grid(row=1,column=2)
 
 addButton = Button(text="Add",width=42,command=writeData)
 addButton.grid(row=4,column=1,columnspan=2)
