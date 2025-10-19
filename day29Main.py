@@ -21,7 +21,19 @@ def generatePassword():
     passwordEntry.insert(0,password)
 def search():
     website = websiteEntry.get()
-    
+    try:
+        with open("./files/jsonData.json",mode="r") as jsonData:
+            data = json.load(jsonData)
+    except FileNotFoundError:
+        messagebox.showinfo("Error","No data Found !")
+    except json.decoder.JSONDecodeError:
+        messagebox.showinfo("Error","Your website not Found !")
+    else:
+        email = data[website]["email"]
+        password = data[website]["password"]
+        messagebox.showinfo(f"{website}",f"email : {email}\npassword : {password}")
+    finally:
+        websiteEntry.delete(0,END)
 window = Tk()
 window.title("Password Manager")
 window.config(padx=50,pady=50)
