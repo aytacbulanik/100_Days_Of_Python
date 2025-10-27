@@ -1,17 +1,15 @@
 import pandas
-from random import randint
+from random import choice
 from tkinter import *
 
 BGCOLOR = "#B1DDC6"
 data = pandas.read_csv("./files/test.csv")
-
+#burası çok önemli data frame de olan her bir satırı dict nesnesine çeviriyor
+dataDict = data.to_dict(orient="records")
 def newQuestion():
-    englishDict = data["english"].to_dict()
-    turkishDict = data["turkish"].to_dict()
-    question = randint(0,99)
-    english = englishDict[question]
-    turkish = turkishDict[question]
-    return [english,turkish]
+    currentWord = choice(dataDict)
+    canvas.itemconfig(titleText , text = "English")
+    canvas.itemconfig(questionText, text = currentWord["english"])
 
 window = Tk()
 window.title("Flashy")
@@ -23,17 +21,18 @@ bgImage = PhotoImage(file=bgImagePath)
 trueImage = PhotoImage(file=trueButtonPath)
 falseImage = PhotoImage(file=falseButtonPath)
 canvas = Canvas(width=820,height=560,highlightthickness=0,bg=BGCOLOR)
-canvas.create_image(420,300,image=bgImage)
+canvas.create_image(410,280,image=bgImage)
 canvas.grid(row=0,column=0,columnspan=2)
-questionData = newQuestion()
-titleText = canvas.create_text(400,200,text=f"{questionData[0]}",font=("Arial",40,"italic"),fill="black")
-questionText = canvas.create_text(400,350,text=f"{questionData[1]}",font=("Arial",50,"bold"),fill="black")
-trueButton = Button(image=trueImage,highlightthickness=0)
+
+titleText = canvas.create_text(400,200,text="English",font=("Arial",30,"italic"),fill="black")
+questionText = canvas.create_text(400,350,text="Word",font=("Arial",40,"bold"),fill="black")
+trueButton = Button(image=trueImage,highlightthickness=0,command=newQuestion)
 trueButton.grid(row=1,column=0)
 
-falseButton = Button(image=falseImage,highlightthickness=0)
+falseButton = Button(image=falseImage,highlightthickness=0,command=newQuestion)
 falseButton.grid(row=1,column=1)
 
+newQuestion()
 
 
 
