@@ -6,6 +6,9 @@ BGCOLOR = "#B1DDC6"
 currentCard = {} #uygulamada o an gösterilen nesneyi başka boş şekilde global
 #olarka tanımlıyoruz. sonra sürekli erişmek için
 dataDict = {} #bunu global olarak tanımlıyoruzki başka değerde atıyalım
+
+#aşağıda try except yapısıyla kalan kelimelerle olan dosya okunuyor
+#yoksa bu dosya sıfırdan oluşturuluyor.böylece hata alınmıyor.
 try:
     data = pandas.read_csv("./files/day31/newWord.csv")
 except FileNotFoundError:
@@ -17,12 +20,12 @@ else:
 
 def nextCard():
     global currentCard , flipTimer
-    window.after_cancel(flipTimer)
-    currentCard = choice(dataDict)
+    window.after_cancel(flipTimer) #her yeni card yüklendiğinde süreyi sıfırlıyor
+    currentCard = choice(dataDict) #karışık kelime seçiyor.
     canvas.itemconfig(titleText , text = "English", fill="white")
     canvas.itemconfig(questionText, text = currentCard["english"], fill= "white")
     canvas.itemconfig(cardBG, image=bgImage)
-    flipTimer = window.after(3000,func=changeCard)
+    flipTimer = window.after(3000,func=changeCard) #3 saniye sonra ekranı güncelliyor
 
 def changeCard():
     canvas.itemconfig(titleText , text= "Turkish", fill="black")
@@ -30,17 +33,17 @@ def changeCard():
     canvas.itemconfig(cardBG, image=bgFrontImage)
 
 def isTrue():
-    dataDict.remove(currentCard)
+    dataDict.remove(currentCard) #o anki nesneyi mevcur listeden siliyor.
     data = pandas.DataFrame(dataDict)
     data.to_csv("files/day31/newWord.csv",index=False) #bu satır çok öenmli 
-    #yeni bir csv oluştururken başına sıra numarası eklemiyor.
+    #index parametresi yeni bir csv oluştururken başına sıra numarası eklemiyor.
     nextCard()
 
 window = Tk()
 window.title("Flashy")
-window.config(padx=50,pady=50,bg=BGCOLOR)
+window.config(padx=50,pady=50,bg=BGCOLOR) #padx pady her yerden boşluk bırakıyor.
 
-flipTimer = window.after(3000,func=changeCard)
+flipTimer = window.after(3000,func=changeCard) #uygulama ilk açıldığında 3 saniye ile kartı yeniliyor.
 bgImagePath = "./files/day31/card_back.png"
 bgFrontImagePath = "./files/day31/card_front.png"
 trueButtonPath = "./files/day31/right.png"
@@ -61,6 +64,6 @@ trueButton.grid(row=1,column=0)
 falseButton = Button(image=falseImage,highlightthickness=0,command=nextCard)
 falseButton.grid(row=1,column=1)
 
-nextCard()
+nextCard() #uygulama ilk açıldığında ilk kartı yüklüyor.
 
 window.mainloop()
