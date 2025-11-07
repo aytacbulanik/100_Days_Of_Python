@@ -15,12 +15,13 @@ import datetime as dt
 import pandas
 import smtplib
 from random import choice
-data = pandas.read_csv("./files/day32/quotes.txt")
-dataList = data.to_dict(orient="records")
 
-def getNewWords():
-    return choice(dataList)
-isDayMonday = dt.datetime.now().weekday()
+# data = pandas.read_csv("./files/day32/quotes.txt")
+# dataList = data.to_dict(orient="records")
+
+# def getNewWords():
+#     return choice(dataList)
+# isDayMonday = dt.datetime.now().weekday()
 
 def sendEmail(message):
     myEmail = "itouchbulanik@gmail.com" #maili atacak adresimiz
@@ -29,12 +30,33 @@ def sendEmail(message):
         connection.starttls() #bu kodla bir güvenlik katmanı oluşturuyoruz.
         connection.login(user=myEmail, password=password)
         connection.sendmail(from_addr=myEmail, 
-                            to_addrs="aytacbulanik@hotmail.com" , 
-                            msg=f"Subject:Hello\n\n {message}")# Subject parametresi maile konu ekliyor
+                            to_addrs="aytacbulanik@hotmail.com", 
+                            msg=f"Subject:Happy Birthday\n\n{message}")
+                            # Subject parametresi maile konu ekliyor
                             #Böylece spama düşmüyor.
 
-if isDayMonday == 1:
-    newWord = getNewWords()["words"]
-    sendEmail(newWord)
-else:
-    print("Bugün değil")
+# if isDayMonday == 1:
+#     newWord = getNewWords()["words"]
+#     sendEmail(newWord)
+# else:
+#     print("Bugün değil")
+
+with open("./files/day32/birthdays.txt") as data:
+    newData = pandas.read_csv(data)
+    dataList = newData.to_dict(orient="records")
+def nowTime():
+    now = dt.datetime.now()
+    year = now.year
+    month = now.month
+    day = now.day
+    return dt.datetime(year=year,month=month,day=day)
+
+def checkWho(now):
+    for object in dataList:
+        if now.day == object["day"] and now.month == object["month"]:
+            with open("./files/day32/letter.txt",encoding="utf-8") as file:
+                contents = file.read()
+                contents = contents.replace("[NAME]", object["name"])
+            sendEmail(contents)
+
+checkWho(nowTime())

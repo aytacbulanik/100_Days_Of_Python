@@ -1,0 +1,4 @@
+name,email,year,month,day
+ceyda,ceydabulanik@gmail.com,1986,9,9
+aytac,aytacbulanik@hotmail.com,1981,12,4
+test,aytacbulanik@hotmail.com,2025,11,8
