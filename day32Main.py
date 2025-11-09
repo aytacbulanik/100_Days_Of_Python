@@ -1,4 +1,4 @@
-#hantanın gününü kontrol ederek pazartesi ise motivasyon maili atan bir uygulama yazdık
+#haftanın gününü kontrol ederek pazartesi ise motivasyon maili atan bir uygulama yazdık
 import datetime as dt
 import pandas
 import smtplib
