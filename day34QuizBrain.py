@@ -11,3 +11,10 @@ class QuizBrain:
         self.qustionNumber += 1
         question = self.currentQuestion.question
         return f"Q.{self.qustionNumber} : {question}"
+    
+    def checkAnswer(self,userAnswer : str):
+        correctAnswer : str = self.currentQuestion.answer
+        if userAnswer.upper() == correctAnswer.upper():
+            return True
+        else:
+            return False

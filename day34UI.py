@@ -4,6 +4,7 @@ from day34QuizBrain import QuizBrain
 ThemeColor = "#375362"
 
 class QuizUI:
+    
     def __init__(self , quizBrain : QuizBrain):
         self.window = Tk()
         self.quiz = quizBrain
@@ -23,13 +24,21 @@ class QuizUI:
         self.canvas.grid(column=0,row=1,columnspan=2,pady=30)
         trueImage = PhotoImage(file="./files/day34/true.png")
         falseImage = PhotoImage(file="./files/day34/false.png")
-        self.trueButton = Button(image=trueImage,highlightthickness=0)
+        self.trueButton = Button(image=trueImage,highlightthickness=0,command=self.truePressed)
         self.trueButton.grid(column=0,row=2)
 
-        self.falseButton = Button(image=falseImage,highlightthickness=0)
+        self.falseButton = Button(image=falseImage,highlightthickness=0,command=self.falsePressed)
         self.falseButton.grid(column=1,row=2)
         self.showNextQuestion()
         self.window.mainloop()
 
     def showNextQuestion(self):
         self.canvas.itemconfig(self.questionText,text=self.quiz.nextQuestion())
+
+    def truePressed(self):
+        result = self.quiz.checkAnswer("True")
+        print(result)
+    
+    def falsePressed(self):
+        result = self.quiz.checkAnswer("False")
+        print(result)
