@@ -1,6 +1,10 @@
 from day34Data import questions
 from tkinter import *
 from day34UI import QuizUI
+from day34QuizBrain import QuizBrain
 
-quizUi = QuizUI()
-allQuestion = questions
+quizBrain = QuizBrain(questions)
+quizUi = QuizUI(quizBrain=quizBrain)
+
+
+

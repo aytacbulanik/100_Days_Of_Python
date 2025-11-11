@@ -1,10 +1,12 @@
 from tkinter import *
+from day34QuizBrain import QuizBrain
 
 ThemeColor = "#375362"
 
 class QuizUI:
-    def __init__(self):
+    def __init__(self , quizBrain : QuizBrain):
         self.window = Tk()
+        self.quiz = quizBrain
         self.window.title("Trivia Question Game")
         self.window.config(padx=30,pady=30,bg=ThemeColor)
 
@@ -13,7 +15,11 @@ class QuizUI:
         self.scoreText.config(pady=10)
 
         self.canvas = Canvas(width=300,height=250,highlightthickness=0)
-        self.questionText = self.canvas.create_text(150,125,text="Question Text",font=("Arial",20)) 
+        self.questionText = self.canvas.create_text(150,
+                                                    125,
+                                                    width=280,
+                                                    text="Question Text",
+                                                    font=("Arial",20)) 
         self.canvas.grid(column=0,row=1,columnspan=2,pady=30)
         trueImage = PhotoImage(file="./files/day34/true.png")
         falseImage = PhotoImage(file="./files/day34/false.png")
@@ -22,5 +28,8 @@ class QuizUI:
 
         self.falseButton = Button(image=falseImage,highlightthickness=0)
         self.falseButton.grid(column=1,row=2)
-
+        self.showNextQuestion()
         self.window.mainloop()
+
+    def showNextQuestion(self):
+        self.canvas.itemconfig(self.questionText,text=self.quiz.nextQuestion())
