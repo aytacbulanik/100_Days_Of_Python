@@ -33,12 +33,28 @@ class QuizUI:
         self.window.mainloop()
 
     def showNextQuestion(self):
-        self.canvas.itemconfig(self.questionText,text=self.quiz.nextQuestion())
+        self.canvas.config(bg="white")
+        if self.quiz.isStillHasQuestions():
+            self.canvas.itemconfig(self.questionText,text=self.quiz.nextQuestion())
+        else:
+            self.canvas.itemconfig(self.questionText,text="TEST BİTTİ")
+            self.falseButton.config(state="disabled")
+            self.trueButton.config(state="disabled")
 
     def truePressed(self):
         result = self.quiz.checkAnswer("True")
-        print(result)
+        self.getFeedback(result)
     
     def falsePressed(self):
         result = self.quiz.checkAnswer("False")
-        print(result)
+        self.getFeedback(result)
+
+    def getFeedback(self,isRight):
+        if isRight:
+            self.quiz.score += 1
+            self.scoreText.config(text=f"Score : {self.quiz.score}")
+            self.canvas.config(bg="green")
+        else:
+            self.scoreText.config(text=f"Score : {self.quiz.score}")
+            self.canvas.config(bg="red")
+        self.window.after(1000,self.showNextQuestion)
