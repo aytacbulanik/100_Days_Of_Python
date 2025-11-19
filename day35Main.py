@@ -25,7 +25,6 @@ for dayly in listData:
 if willRain:
     
     client = Client(account_sid, auth_token)
-
     message = client.messages.create(
     from_='whatsapp:+14155238886',
     content_sid='HX229f5a04fd0510ce1b071852155d3e75',
