@@ -36,12 +36,19 @@ headers = {
 setPixelEndpoint = f"https://pixe.la/v1/users/{userName}/graphs/graph1"
 
 today = datetime(year=2025,month=11,day=20)
-
+todayStr = today.strftime("%Y%m%d")
 pixelConfig = {
-    "date" : today.strftime("%Y%m%d"),
+    "date" : todayStr,
     "quantity" : "19.2"
 }
 
+# response = requests.post(url=setPixelEndpoint,json=pixelConfig,headers=headers)
+# print(response.text)
 
-response = requests.post(url=setPixelEndpoint,json=pixelConfig,headers=headers)
+updateEndpoint = f"{setPixelEndpoint}/{todayStr}"
+updateData = {
+    "quantity" : "2"
+}
+
+response = requests.put(url=updateEndpoint,json=updateData,headers=headers)
 print(response.text)
