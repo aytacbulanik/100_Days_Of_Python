@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 #post metodunu gönderirken bu sefer değer yazmak için gerekli parametreleri
 #giriyoruz.
 pixelaEndpoint = "https://pixe.la/v1/users"
@@ -34,10 +35,13 @@ headers = {
 
 setPixelEndpoint = f"https://pixe.la/v1/users/{userName}/graphs/graph1"
 
+today = datetime(year=2025,month=11,day=20)
+
 pixelConfig = {
-    "date" : "20251120",
-    "quantity" : "3.2"
+    "date" : today.strftime("%Y%m%d"),
+    "quantity" : "19.2"
 }
+
 
 response = requests.post(url=setPixelEndpoint,json=pixelConfig,headers=headers)
 print(response.text)
