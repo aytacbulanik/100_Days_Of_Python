@@ -18,6 +18,10 @@ headers = {
     "x-app-key" : xappkey
 }
 
+bearer_headers = {
+    "Authorization": "Basic YXl0YWNidWxhbmlrOkE5ODQ2OTg0NmE/"
+}
+
 dataJson = {
     "query" : "swam for 1 hour",
     "weight_kg" : WEIGHT_KG,
@@ -39,7 +43,7 @@ for exercise in result["exercises"]:
         }
     }
 
-    sheet_response = requests.post(sheetEndpoint, json=sheet_inputs)
+    sheet_response = requests.post(sheetEndpoint, json=sheet_inputs,headers=bearer_headers)
 
     print(sheet_response.text)
 
