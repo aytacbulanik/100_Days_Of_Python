@@ -12,5 +12,13 @@ driver.get("https://www.python.org/")
 # print(f"Fiyat: {priceTL.text},{priceKurus.text} TL")
 
 searchBox = driver.find_element(By.NAME, value="q") #name attribute'una göre elementi bulma
-print(searchBox.tag_name) #elementin etiket ismini yazdırma
+print(searchBox.get_attribute("placeholder")) #elementin placeholderı yazdırma
+button = driver.find_element(By.ID, value="submit") #id attribute'una göre elementi bulma
+print(button.size) #elementin boyutlarını yazdırma
+documentationLink = driver.find_element(By.CSS_SELECTOR, value=".documentation-widget a") #bir class içerisinde bulunan a etiketine göre elementi bulma
+print(documentationLink.text) #elementin textini yazdırma
+
+#sitedeki elementin yolunu kullanarakta erişim sağlayabiliriz. copy dedikten sonra xpath seçilmeli
+bugLink = driver.find_element(By.XPATH, value='//*[@id="site-map"]/div[2]/div/ul/li[2]/a')
+print(bugLink.text) #elementin textini yazdırma
 driver.quit()
