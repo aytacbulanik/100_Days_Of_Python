@@ -56,6 +56,25 @@ import random
 # newDict = { name : random.randint(1,100) for name in names}
 # print(newDict)
 
-weather_c = {"Monday": 12, "Tuesday": 14, "Wednesday": 15, "Thursday": 14, "Friday": 21, "Saturday": 22, "Sunday": 24}
-weatherF = { day : (degrees*0.2)+273 for (day,degrees) in weather_c.items()}
-print(weatherF)
+# weather_c = {"Monday": 12, "Tuesday": 14, "Wednesday": 15, "Thursday": 14, "Friday": 21, "Saturday": 22, "Sunday": 24}
+# weatherF = { day : (degrees*0.2)+273 for (day,degrees) in weather_c.items()}
+# print(weatherF)
+
+class User:
+    def __init__(self,name):
+        self.name = name
+        self.is_logged_in = False
+
+def isAuthtenticated(function):
+    def wrapper(*args, **kwargs):
+        if args[0].is_logged_in:
+            function(args[0])
+    return wrapper
+
+@isAuthtenticated
+def createBlog(user):
+    print(f"This is {user.name}'s blog")
+
+newUser = User("aytaç")
+newUser.is_logged_in = True
+createBlog(newUser)
